@@ -73,6 +73,12 @@ class Dino(pygame.sprite.Sprite):
         self.jump_step = -22
         self.timer_spawn = 0
         self.score = 0
+        self.mask = pygame.mask.from_surface(self.image)
+        self.mask_outline = self.mask.outline()
+        self.mask_list = []
+
+
+
 
     def update(self, *args, **kwargs):
         global  FPS
@@ -101,14 +107,13 @@ class Dino(pygame.sprite.Sprite):
                 self.kill()
                 FPS = 3
 
-
-
-
-
-
-
-
-
+        self.mask_list = []
+        for i in self.mask_outline:
+            self.mask_list.append((i[0] + self.rect.x, i[1] + self.rect.y))
+        for point in self.mask_list:
+            x = point[0]
+            y = point[1]
+            pygame.draw.circle(sc, 'RED',(x,y),3)
 
 
 
